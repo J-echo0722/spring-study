@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="student" class="com.mj.pojo.Student">
+        <!-- 值 -->
+        <property name="name" value="马俊"/>
+        <!-- null 注入 -->
+        <property name="email">
+            <null/>
+        </property>
+        <!-- 对象 ref -->
+        <property name="address" ref="address"/>
+        <!-- 数组 -->
+        <property name="books">
+            <array>
+                <value>语文</value>
+                <value>数学</value>
+            </array>
+        </property>
+        <!-- List -->
+        <property name="hobbys">
+            <list>
+                <value>打篮球</value>
+                <value>画画</value>
+            </list>
+        </property>
+        <!-- Map -->
+        <property name="card">
+            <map>
+                <entry key="公交卡" value="00134"/>
+                <entry key="地铁卡" value="217"/>
+            </map>
+        </property>
+        <!-- Set -->
+        <property name="games">
+            <set>
+                <value>魂斗罗</value>
+                <value>穿越火线</value>
+                <value>魂斗罗</value>
+            </set>
+        </property>
+        <!-- Properties -->
+        <property name="info">
+            <props>
+                <prop key="学号">2016302412</prop>
+                <prop key="性别">男</prop>
+                <prop key="账号">root</prop>
+                <prop key="密码">1234</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="address" class="com.mj.pojo.Address">
+        <property name="address" value="上海浦东新区张江"/>
+    </bean>
+</beans>
