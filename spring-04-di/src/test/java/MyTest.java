@@ -25,5 +25,8 @@ public class MyTest {
         // User user = (User) context.getBean("user");   // 不指定 class
         User user = context.getBean("user", User.class);       // 指定 class，不用强转
         System.out.println(user.toString());
+
+        User user1 = context.getBean("user1", User.class);
+        System.out.println(user1.toString());
     }
 }
