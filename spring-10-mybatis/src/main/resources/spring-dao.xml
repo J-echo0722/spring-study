@@ -1,0 +1,36 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--
+        DataSource：使用 Spring 的数据源替换 Mybatis 的配置 c3p0 dbcp druid
+        这里使用 Spring 提供的 JDBC：org.springframework.jdbc.datasource
+    -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/mybatis?useSSL=false&amp;useUnicode=true&amp;characterEncoding=UTF8&amp;serverTimezone=GMT%2B8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="root"/>
+    </bean>
+
+    <!-- sqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <!-- 绑定 mybatis 配置文件 -->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:com/mj/mapper/*.xml"/>
+    </bean>
+
+    <!-- spring 整合 mybatis 方式一：利用 SqlSessionTemplate 代替 SqlSession，因为：SqlSessionTemplate 实现了接口 SqlSession-->
+    <!-- SqlSessionTmeplate：就是我们使用的 sqlSession -->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <!-- 只能使用构造器注入 sqlSessionFactory，因为没有 set 方法-->
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+    <!-- spring 整合 mybatis 方式二：利用 SqlSessionDaoSupport 代替 SqlSessionTemplate，因为：SqlSessionDaoSupport 引入了变量 SqlSessionTemplate ，其 SqlSessionTemplate 需要 sqlSessionFactory-->
+    <bean id="userMapper2" class="com.mj.mapper.UserMapperImpl2">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+</beans>

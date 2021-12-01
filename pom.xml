@@ -17,6 +17,9 @@
         <module>spring-06-anno</module>
         <module>spring-07-appconfig</module>
         <module>spring-08-proxy</module>
+        <module>spring-09-aop</module>
+        <module>spring-10-mybatis</module>
+        <module>spring-11-transaction</module>
     </modules>
     <dependencies>
 
@@ -27,6 +30,12 @@
             <version>5.3.13</version>
         </dependency>
 
+        <!-- Aop -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.9.4</version>
+        </dependency>
 
         <!-- junit 单元测试-->
         <dependency>
@@ -40,10 +49,34 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.16.16</version>
-            <scope>provided</scope>
         </dependency>
 
     </dependencies>
 
+
+    <!-- 解决：maven 打包的时候 src 目录 xml 等文件没有被打包 -->
+    <!-- 在 build 中配置 resources，来防止资源导出失败的问题 -->
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <!-- 是否替换资源中的属性-->
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+    </build>
 
 </project>

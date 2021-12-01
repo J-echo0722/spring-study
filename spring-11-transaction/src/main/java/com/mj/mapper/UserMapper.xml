@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 绑定一个对应的 Dao/Mapper 接口 -->
+<mapper namespace="com.mj.mapper.UserMapper">
+
+    <select id="selectUsers" resultType="com.mj.pojo.User">
+        select *
+        from mybatis.user
+    </select>
+
+    <insert id="insert">
+        insert into mybatis.user(id, name, pwd) value (#{user.id}, #{user.name}, #{user.pwd})
+    </insert>
+
+    <delete id="delete">
+        delete from mybatis.user where id = #{id}
+    </delete>
+
+    <update id="update">
+        update mybatis.user
+        <set>
+            <if test="user.name != null and user.name != ''">
+                name = #{user.name},
+            </if>
+            <if test="user.pwd != null and user.pwd != ''">
+                pwd = #{user.pwd}
+            </if>
+        </set>
+        where id = #{user.id}
+    </update>
+
+</mapper>

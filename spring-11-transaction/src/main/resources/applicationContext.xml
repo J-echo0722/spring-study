@@ -1,0 +1,16 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            https://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/aop
+            https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <import resource="spring-dao.xml"/>
+
+    <!-- bean -->
+    <!-- spring 整合 mybatis 方式二：利用 SqlSessionDaoSupport 代替 SqlSessionTemplate，因为：SqlSessionDaoSupport 引入了变量 SqlSessionTemplate ，其 SqlSessionTemplate 需要 sqlSessionFactory-->
+    <bean id="userMapper" class="com.mj.mapper.UserMapperImpl">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+    </bean>
+</beans>
